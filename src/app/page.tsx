@@ -12,7 +12,8 @@ export default async function Home({
     genre === "topRated" ? "/movie/top_rated" : "/trending/all/week";
 
   const res = await fetch(
-    `https://api.themoviedb.org/3${params}?api_key=${API_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3${params}?api_key=${API_KEY}&language=en-US&page=1`,
+    { next: { revalidate: 36000 } }
   );
   const resData = await res.json();
   if (!res.ok) throw new Error("An error occure. Failed to fetch movie data");
