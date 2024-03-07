@@ -1,5 +1,23 @@
-import React from "react";
+import Results from "@/components/movies/Results";
 
-export default function Home() {
-  return <div>Home</div>;
+const API_KEY = process.env.API_KEY;
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { genre: string };
+}) {
+  const genre = searchParams.genre || "trending";
+  const params =
+    genre === "topRated" ? "/movie/top_rated" : "/trending/all/week";
+
+  const res = await fetch(
+    `https://api.themoviedb.org/3${params}?api_key=${API_KEY}&language=en-US&page=1`
+  );
+  const resData = await res.json();
+  if (!res.ok) throw new Error("An error occure. Failed to fetch movie data");
+  const data = resData.results;
+  console.log(data);
+
+  return <Results results={data} />;
 }
