@@ -4,13 +4,22 @@ import Image from "next/image";
 import { MovieType } from "./Movies";
 import { FiThumbsUp } from "react-icons/fi";
 
-export default function MovieCard({ movie }: { movie: MovieType }) {
-  const newDate = new Date(movie.release_date || movie.first_air_date);
+export function generateReadableDate(date: string) {
+  const newDate = new Date(date);
   const readableDate = newDate.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
+
+  return readableDate;
+}
+
+export default function MovieCard({ movie }: { movie: MovieType }) {
+  const readableDate = generateReadableDate(
+    movie.release_date || movie.first_air_date
+  );
+
   return (
     <li className="group rounded-lg hover:shadow-md hover:shadow-slate-600 border border-slate-400 duration-300">
       <Link href={`/movie/${movie.id}`}>

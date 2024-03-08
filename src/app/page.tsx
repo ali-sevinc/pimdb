@@ -18,7 +18,7 @@ export default async function Home({
   const resData = await res.json();
   if (!res.ok) throw new Error("An error occure. Failed to fetch movie data");
   const data = resData.results;
-  console.log(data);
+  // console.log(data);
 
   return <Results movies={data} />;
 }
