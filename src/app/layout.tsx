@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Layout/Header";
 import NavBar from "@/components/Layout/NavBar";
 import Search from "@/components/Layout/Search";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,10 +24,12 @@ export default function RootLayout({
         <link rel="icon" href="/icon.png" sizes="any" />
       </head>
       <body className={inter.className}>
-        <Header />
-        <NavBar />
-        <Search />
-        {children}
+        <Suspense>
+          <Header />
+          <NavBar />
+          <Search />
+          {children}
+        </Suspense>
       </body>
     </html>
   );
